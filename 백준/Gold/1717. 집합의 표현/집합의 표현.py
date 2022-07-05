@@ -1,6 +1,6 @@
 import sys
-sys.setrecursionlimit(10**9)
-n, m = map(int,[int(x) for x in sys.stdin.readline().split()])
+sys.setrecursionlimit(10**9) #재귀가 깊어지면 recursion 오류가 발생하는데 제한을 늘려준다
+n, m = map(int,[int(x) for x in sys.stdin.readline().split()]) #input으로 받앋을 시 시간초과가 일어나게된다
 array=[]
 
 for i in range(n+1):
