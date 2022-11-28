@@ -12,6 +12,6 @@ for i in range(n):
     x = y
     y = gcd
   
-  print(int(a*b/y)) 
+  print(int(a*b/y)) # 두 수의 곱 = 최소공배수 * 최대공약수임을 이용하여 최소공배수를 구한다
 
  
