@@ -9,7 +9,7 @@ def fib(n):
   dp[1]=[0,1]
   for i in range(2,len(dp)):
 
-    dp[i] = [x+y for x,y in zip(dp[i-2],dp[i-1])]
+    dp[i] = [x+y for x,y in zip(dp[i-2],dp[i-1])] # 두 배열 각 자리 더하기
 
   return dp[n]
 
