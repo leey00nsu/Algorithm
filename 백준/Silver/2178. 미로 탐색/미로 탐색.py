@@ -24,9 +24,6 @@ def bfs():
         visited[new_i][new_j]=1
         Maze[new_i][new_j] = Maze[i][j] + 1
 
-    if(Maze[N-1][M-1]!=1):
-      break
-
 
 bfs()
 
