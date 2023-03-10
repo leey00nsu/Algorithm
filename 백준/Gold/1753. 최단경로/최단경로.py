@@ -1,0 +1,44 @@
+import heapq
+
+INF = 1e9
+heap = []
+V, E = list(map(int, input().split()))
+V_START = int(input())  # 시작 정점
+
+graph = {}
+previous = {}
+distance = {}
+
+
+for i in range(1, V + 1):
+    if i == V_START:
+        distance[i] = 0
+    else:
+        distance[i] = INF
+    graph[i] = []
+
+
+for i in range(E):
+    u, v, w = list(map(int, input().split()))
+    graph[u].append({"node": v, "weight": w})
+
+heapq.heappush(heap, (distance[V_START], V_START))
+
+while heap:
+    current_distance, current_node = heapq.heappop(heap)
+
+    if current_distance != INF:
+        for node in graph[current_node]:
+            v = node["node"]
+            w = node["weight"]
+            candidate = distance[current_node] + w
+            if distance[v] > candidate:
+                distance[v] = candidate
+                previous[v] = current_node
+                heapq.heappush(heap, (candidate, v))
+
+for i in range(1, V + 1):
+    if distance[i] == INF:
+        print("INF")
+    else:
+        print(distance[i])
