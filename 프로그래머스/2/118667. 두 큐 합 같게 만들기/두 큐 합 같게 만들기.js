@@ -23,7 +23,7 @@ function solution(queue1, queue2) {
     let queue2Sum = queue2.reduce((prev=0,cur) => prev+=cur)
     
     while(queue1Sum !== queue2Sum) {
-        if(cnt > queue1.length*4) {
+        if(cnt > queue1.length*2+1) {
             return -1
         }
         if(queue1Sum > queue2Sum) {
