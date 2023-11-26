@@ -57,8 +57,6 @@ function solution(p) {
   function fixBracket(arr) {
     if (arr.length === 0) return "";
 
-    let maxOpen = [...arr].filter((el) => el === "(").length;
-    let maxClose = [...arr].filter((el) => el === ")").length;
     let open = 0;
     let close = 0;
     let index = 0;
