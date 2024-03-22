@@ -17,8 +17,9 @@ function solution(tickets) {
         const lastAirport = current.at(-1)
         
         leftTickets.forEach((ticket,idx) => {
-            if(ticket[0] === lastAirport) {
-                dfs([...current,ticket[1]],[...leftTickets.slice(0,idx),...leftTickets.slice(idx+1)])
+            const [from,to] = ticket
+            if(from === lastAirport) {
+                dfs([...current,to],[...leftTickets.slice(0,idx),...leftTickets.slice(idx+1)])
             }
         })
     }
