@@ -12,12 +12,10 @@ function solution(enroll, referral, seller, amount) {
     const sellMap = {}
     const moneyMap = {}
     
-    enroll.forEach(e => {
+    enroll.forEach((e,idx) => {
         sellerMap[e] = ''
         moneyMap[e] = 0
-    })
-    
-    enroll.forEach((e,idx) => {
+        
         if(referral[idx] !== '-') {
             sellerMap[e] = referral[idx]
         }
