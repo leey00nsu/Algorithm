@@ -9,6 +9,25 @@ A가 먼저 n / 2개의 주사위를 가져가면 B가 남은 n / 2개의 주사
 
 */
 
+// lower bound
+function binarySearch(arr,target) {
+    let low = 0
+    let high = arr.length - 1
+    
+    while(low <= high) {
+        let mid = Math.floor((low+high)/2)
+        
+        if(arr[mid] < target) {
+            low = mid + 1
+        }
+        else {
+            high = mid - 1
+        }
+    }
+    
+    return low
+}
+
 function getCombination(arr,n) {
     const result = []
 
@@ -54,6 +73,7 @@ function solution(dice) {
     for(let i=1;i<=n;i++) {
         diceArr.push(i)
     }
+
     
     // 주사위를 n/2 만큼 뽑는 조합 계산
     const aDiceCandidates = getCombination(diceArr,n/2)
@@ -73,14 +93,7 @@ function solution(dice) {
         let win = 0
         
         for(let j=0; j<sumLength;j++) {
-            for(let k=idx; k<sumLength;k++) {
-                if(aDiceSum[j] <= bDiceSum[k]) {
-                    idx = k
-                    break
-                }
-                win += 1
-            }
-            win += idx
+            win += binarySearch(bDiceSum,aDiceSum[j])
         }
         
         if(win > maxWin) {
