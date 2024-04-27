@@ -30,7 +30,10 @@ function solution(board) {
                 i = newI
                 j = newJ
             } else {
-                queue.push([i,j,d])
+                if(!visited[i][j]) {
+                    queue.push([i,j,d])
+                    visited[i][j] = true
+                }
                 
                 break
             }
@@ -40,13 +43,7 @@ function solution(board) {
     while(queue.length > 0) {
         const [i,j,d] = queue.shift()
         
-        if(board[i][j] === 'G') return d
-        
-        if(visited[i][j]) continue
-        
-        
-        visited[i][j] = true
-        
+        if(board[i][j] === 'G') return d        
         
         for(let k=0;k<4;k++) {
             let newI = i+di[k]
