@@ -23,7 +23,6 @@
 
 function playCard(start,cards,visited) {
         let position = start
-        let point = 0
         const currentCards = [...cards]
         const group = []
         
