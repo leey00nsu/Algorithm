@@ -50,11 +50,11 @@ function solution(play_time, adv_time, logs) {
     let maxSum = viewArr[targetTime-1]
     let idx = 0
     
-    for(let i=1;i<maxTime-targetTime;i++) {
-        const sum = viewArr[targetTime+i] - viewArr[i]
+    for(let i=1;i+targetTime<=maxTime;i++) {
+        const sum = viewArr[i+targetTime-1] - viewArr[i-1]
         if(maxSum < sum) {
             maxSum = sum
-            idx = i + 1 
+            idx = i
         }
     }
     
