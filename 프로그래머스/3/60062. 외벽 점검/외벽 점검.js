@@ -44,7 +44,6 @@ function solution(n, weak, dist) {
     
     dist.sort((a,b) => b - a)
     
-    
     for(let i=1;i<=dist.length;i++) {
         const candidates = getPermutation(dist,i)
         
