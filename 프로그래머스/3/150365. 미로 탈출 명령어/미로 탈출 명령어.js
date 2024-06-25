@@ -5,58 +5,48 @@
     이때, (x, y)와 (r, c)격자를 포함해, 같은 격자를 두 번 이상 방문해도 됩니다.
     미로에서 탈출한 경로를 문자열로 나타냈을 때, 문자열이 사전 순으로 가장 빠른 경로로 탈출해야 합니다.
     
-d,l,r,u 순서로 이동한다
+d,l,r,u 순서
 
+우선 S -> E 까지의 최단거리로 이동 후
 */
 
 function getDistance(x,y,r,c) {
     return Math.abs(x-r) + Math.abs(y-c)
-}   
+}
 
 function solution(n, m, x, y, r, c, k) {
-    let answer = ''
-    let move = 0
+    const maze = Array(n).fill(0).map(el => Array(m).fill(0))
+    const rX = x - 1
+    const rY = y - 1
+    const rR = r - 1
+    const rC = c - 1
+    const stack = [[rX,rY,'']]
+    const distance = [[-1,0,'u'],[0,1,'r'],[0,-1,'l'],[1,0,'d']]
     
-    // 탈출할 수 없는 경우
     if(k - getDistance(x,y,r,c) < 0 || (k - getDistance(x,y,r,c)) % 2 === 1) return 'impossible'
     
-    
-    // 남는 k를 사용하여 최대한 d,l 로 이동
-    while(x < n && (k - move) > getDistance(x,y,r,c)) {
-        x += 1
-        move += 1
-        answer += 'd'
-    }
-    while(y > 1 && (k - move) > getDistance(x,y,r,c)) {
-        y -= 1
-        move += 1
-        answer += 'l'
-    }
-    
-    // 그래도 남으면 r,l 순으로 이동
-    while((k - move) > getDistance(x,y,r,c)) {
-        move += 2
-        answer += 'rl'
-    }
-    
-    // 탈출 지점으로 이동
-    while(x < r) {
-        x += 1
-        answer += 'd'
-    }
-    while(y > c) {
-        y -= 1
-        answer += 'l'
-    }
-    while(y < c) {
-        y += 1
-        answer += 'r'
-    }
-    while(x > r) {
-        x -= 1
-        answer += 'u'
+    while(stack.length > 0) {
+        const [cR,cC,cH] = stack.pop()
+        
+        if(cR === rR && cC === rC && cH.length === k) {
+            return cH
+        }
+        
+        
+        for(const d of distance) {
+            const [dR,dC,dH] = d
+            
+            const nextR = cR+dR
+            const nextC = cC+dC
+            const nextH = cH+dH
+            
+            if(nextR < 0 || nextR >= n || nextC < 0 || nextC >= m) continue
+            if(k < nextH.length + getDistance(nextR,nextC,rR,rC)) continue
+            
+            stack.push([nextR,nextC,nextH])
+        }
     }
     
 
-    return answer
+    return 
 }
