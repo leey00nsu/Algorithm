@@ -16,6 +16,7 @@ const readline = require('readline');
     let count = 0
     
     for (let i = 0; i < n; i++) {
+			
         while (stack.length > 0 && heights[stack[stack.length - 1]] <= heights[i]) {
             if (heights[stack[stack.length - 1]] === heights[i]) {
                 count++
