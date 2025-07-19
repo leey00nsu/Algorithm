@@ -1,12 +1,26 @@
 function solution(phone_book) {
-  let phone_book_sorted = phone_book.sort();
-  let answer = true;
-
-  for (let i = 0; i < phone_book_sorted.length - 1; i++) {
-    let prefix = phone_book_sorted[i];
-    let next_phone = phone_book_sorted[i + 1];
-    if (next_phone.startsWith(prefix)) answer = false;
-  }
-
-  return answer;
+    const set = {}
+    
+    for(let i=0; i<phone_book.length; i++) {
+        const current = phone_book[i]
+        
+        set[current] = true
+    }
+    
+    for(let i=0; i<phone_book.length; i++) {
+        const current = phone_book[i]
+        let temp = ''
+        
+        for(let j=0; j<current.length; j++) {
+            temp += current[j]
+            
+            if(current != temp && set[temp] ) {
+                return false
+            }
+        }
+        
+        set[current] = true
+    }
+    
+    return true;
 }
