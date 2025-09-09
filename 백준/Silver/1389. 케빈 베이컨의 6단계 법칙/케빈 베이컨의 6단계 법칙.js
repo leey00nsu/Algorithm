@@ -4,51 +4,48 @@ const input = fs.readFileSync("/dev/stdin").toString().trim().split("\n");
 // bfs
 
 const [N, M] = input[0].split(" ").map(Number);
-
-const map = new Map();
+const graph = [];
+for (let i = 0; i <= N; i++) {
+  graph[i] = [];
+}
 
 for (let i = 1; i <= M; i++) {
   const [start, end] = input[i].split(" ").map(Number);
 
-  if (map.get(start)) {
-    map.set(start, [...map.get(start), end]);
-  } else {
-    map.set(start, [end]);
-  }
-
-  if (map.get(end)) {
-    map.set(end, [...map.get(end), start]);
-  } else {
-    map.set(end, [start]);
-  }
+  graph[start].push(end);
+  graph[end].push(start);
 }
 
 const result = [];
 
 function bfs(start) {
-  const visited = new Array(N + 1).fill(false);
+  const distance = new Array(N + 1).fill(-1);
+  const queue = new Array(N);
 
-  const queue = [[start, 0]];
+  let head = 0;
+  let tail = 0;
 
-  visited[start] = true;
+  distance[start] = 0;
+  queue[tail++] = start;
 
-  let bacon = 0;
+  while (head < tail) {
+    const current = queue[head++];
 
-  while (queue.length > 0) {
-    const [target, count] = queue.shift();
-    bacon += count;
-
-    const next = map.get(target) ?? [];
-
-    next.forEach((n) => {
-      if (!visited[n]) {
-        visited[n] = true;
-        queue.push([n, count + 1]);
+    for (const next of graph[current]) {
+      if (distance[next] === -1) {
+        distance[next] = distance[current] + 1;
+        queue[tail++] = next;
       }
-    });
+    }
   }
 
-  return bacon;
+  let sum = 0;
+
+  for (let i = 1; i <= N; i++) {
+    sum += distance[i];
+  }
+
+  return sum;
 }
 
 for (let i = 1; i <= N; i++) {
