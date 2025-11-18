@@ -1,44 +1,44 @@
 const fs = require("fs");
 const input = fs.readFileSync("/dev/stdin").toString().trim().split("\n");
 
+// 랜선의 개수를 충족하면서, 랜선의 길이가 최대를 만족해야한다.
+
 const [K, N] = input[0].split(" ").map(Number);
 
-const lines = [];
+const arr = [];
 
 for (let i = 1; i <= K; i++) {
   const line = Number(input[i]);
 
-  lines.push(line);
+  arr.push(line);
 }
 
-lines.sort((a, b) => a - b);
+arr.sort((a, b) => a - b);
 
-console.log(binarySearch(N));
+function ok(mid) {
+  let count = 0;
 
-function binarySearch(n) {
-  let left = 1;
-  let right = Math.max(...lines);
+  arr.forEach((n) => {
+    count += Math.floor(n / mid);
+  });
 
-  let result = left;
+  return count >= N;
+}
 
-  while (left <= right) {
-    let mid = Math.floor((left + right) / 2);
+let low = 1;
+let high = Math.max(...arr);
 
-    let slices = 0;
+let result = low;
 
-    lines
-      .map((x) => Math.floor(x / mid))
-      .forEach((y) => {
-        slices += y;
-      });
+while (low <= high) {
+  const mid = Math.floor((low + high) / 2);
 
-    if (slices >= n) {
-      result = mid;
-      left = mid + 1;
-    } else {
-      right = mid - 1;
-    }
+  if (ok(mid)) {
+    result = mid;
+    low = mid + 1;
+  } else {
+    high = mid - 1;
   }
-
-  return result;
 }
+
+console.log(result);
